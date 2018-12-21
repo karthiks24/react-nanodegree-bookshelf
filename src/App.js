@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router'
 import {getAll} from './BooksAPI';
 import './App.css';
 import BookContainer from './BookContainer';
@@ -50,20 +50,30 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-            this.state.books.length > 0 ? (
+
                 <div className="app">
+                    <Switch>
+
                     <Route exact path="/" render={() =>
+                       /* this.state.books.length > 0 ? (*/
                         <BookContainer
                             books={this.state.books}
                             onShelfChange={this.handleShelfChange}
-                        />}
+                        />/*): ''*/}
                     />
+
                     <Route path="/search" render={() => <SearchBooks
                         booksOnShelves={this.state.books}
                         onShelfChange={this.handleShelfChange}
                     />}
                     />
-                </div>) : ''
+                    <Route  render={() => <div>
+                      <strong> 404 Not found</strong>
+                    </div>
+                    }
+                    />
+                    </Switch>
+                </div>
         );
     }
 }

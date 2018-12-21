@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {search} from './BooksAPI';
 import Book from './Book';
+import {DebounceInput} from 'react-debounce-input';
 
 class SearchBooks extends Component {
     state = {
@@ -23,7 +24,7 @@ class SearchBooks extends Component {
                 searchResults: []
             });
         } else {
-            search(this.state.query)
+            search(currentQuery)
                 .then((response) => {
                     //if there are no results or the search field is empty, reset state.searchResults
                     if (!(response instanceof Array) || this.state.query === '') {
@@ -68,11 +69,13 @@ class SearchBooks extends Component {
                             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                             you don't find a specific author or title. Every search is limited by search terms.
                         */}
-                        <input
-                            type="text"
-                            value={query}
-                            placeholder="Search by title or author"
-                            onChange={this.handleInputChange}
+                         <DebounceInput
+                             minLength={2}
+                             debounceTimeout={300}
+                             type="text"
+                             value={query}
+                             placeholder="Search by title or author"
+                             onChange={this.handleInputChange}
                         />
                     </div>
                 </div>

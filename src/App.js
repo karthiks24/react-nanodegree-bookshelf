@@ -1,12 +1,12 @@
 import React from 'react';
-import { Switch, Route } from 'react-router'
+import {Route, Switch} from 'react-router'
 import {getAll} from './BooksAPI';
 import './App.css';
 import BookContainer from './BookContainer';
 import SearchBooks from './SearchBooks'
+
 class BooksApp extends React.Component {
     state = {
-        showSearchPage: false,
         books: []
     }
 
@@ -51,11 +51,11 @@ class BooksApp extends React.Component {
     render() {
         return (
 
-                <div className="app">
-                    <Switch>
+            <div className="app">
+                <Switch>
 
                     <Route exact path="/" render={() =>
-                       /* this.state.books.length > 0 ? (*/
+                        /* this.state.books.length > 0 ? (*/
                         <BookContainer
                             books={this.state.books}
                             onShelfChange={this.handleShelfChange}
@@ -67,13 +67,13 @@ class BooksApp extends React.Component {
                         onShelfChange={this.handleShelfChange}
                     />}
                     />
-                    <Route  render={() => <div>
-                      <strong> 404 Not found</strong>
+                    <Route render={() => <div>
+                        <strong> 404 Not found</strong>
                     </div>
                     }
                     />
-                    </Switch>
-                </div>
+                </Switch>
+            </div>
         );
     }
 }
